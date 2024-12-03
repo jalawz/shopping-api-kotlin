@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
 @Repository
-interface ShopRepository : JpaRepository<Shop, Long> {
+interface ShopRepository : JpaRepository<Shop, Long>, ReportRepository {
 
     fun findAllByUserIdentifier(userIdentifier: String): List<Shop>
 

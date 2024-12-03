@@ -1,10 +1,13 @@
 package com.menezes.back.end.shopping.service
 
 import com.menezes.back.end.shopping.dto.ShopDTO
+import com.menezes.back.end.shopping.dto.ShopReportDTO
 import com.menezes.back.end.shopping.exceptions.ResourceNotFoundException
 import com.menezes.back.end.shopping.model.Shop
 import com.menezes.back.end.shopping.repository.ShopRepository
+import org.springframework.cglib.core.Local
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Service
@@ -41,5 +44,21 @@ class ShopService(
             )
         )
         return ShopDTO.convert(shop)
+    }
+
+    fun getShopsByFilter(
+        initialDate: LocalDate,
+        endDate: LocalDate?,
+        minValue: Float?
+    ): List<ShopDTO> {
+        val shops = shopRepository.getShopByFilters(initialDate, endDate, minValue)
+        return shops.map { ShopDTO.convert(it) }
+    }
+
+    fun getReportByDate(
+        initialDate: LocalDate,
+        endDate: LocalDate
+    ): ShopReportDTO {
+        return shopRepository.getReportByDate(initialDate, endDate)
     }
 }
