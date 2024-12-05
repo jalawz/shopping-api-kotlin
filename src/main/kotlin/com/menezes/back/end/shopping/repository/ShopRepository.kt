@@ -7,7 +7,6 @@ import java.time.LocalDateTime
 
 @Repository
 interface ShopRepository : JpaRepository<Shop, Long>, ReportRepository {
-
     fun findAllByUserIdentifier(userIdentifier: String): List<Shop>
 
     fun findAllByTotalGreaterThan(total: Float): List<Shop>

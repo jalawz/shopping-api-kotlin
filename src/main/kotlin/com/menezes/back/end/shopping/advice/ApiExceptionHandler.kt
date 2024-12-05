@@ -9,22 +9,21 @@ import java.time.Instant
 
 @RestControllerAdvice
 class ApiExceptionHandler {
-
     @ExceptionHandler(ResourceNotFoundException::class)
     fun handleResourceNotFound(ex: ResourceNotFoundException): ResponseEntity<ErrorMessage> {
-        val errorMessage = ErrorMessage(
-            message = ex.message ?: "Resource Not Found",
-            status = HttpStatus.NOT_FOUND.value(),
-            timestamp = Instant.now()
-        )
+        val errorMessage =
+            ErrorMessage(
+                message = ex.message ?: "Resource Not Found",
+                status = HttpStatus.NOT_FOUND.value(),
+                timestamp = Instant.now(),
+            )
 
         return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
     }
 }
 
-
 data class ErrorMessage(
     val message: String,
     val status: Int,
-    val timestamp: Instant
+    val timestamp: Instant,
 )

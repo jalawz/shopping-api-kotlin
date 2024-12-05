@@ -1,18 +1,20 @@
 package com.menezes.back.end.shopping.repository
 
-import com.menezes.back.end.shopping.dto.ShopReportDTO
 import com.menezes.back.end.shopping.model.Shop
+import com.menezes.backend.client.dto.ShopReportDTO
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
-import java.math.BigInteger
 import java.time.LocalDate
-import kotlin.math.min
 
 class ReportRepositoryImpl(
     @PersistenceContext
-    private val entityManager: EntityManager
+    private val entityManager: EntityManager,
 ) : ReportRepository {
-    override fun getShopByFilters(initialDate: LocalDate, endDate: LocalDate?, minValue: Float?): List<Shop> {
+    override fun getShopByFilters(
+        initialDate: LocalDate,
+        endDate: LocalDate?,
+        minValue: Float?,
+    ): List<Shop> {
         val sb = StringBuilder()
         sb.append("select s ")
         sb.append("from shop s ")
@@ -40,7 +42,10 @@ class ReportRepositoryImpl(
         return query.resultList
     }
 
-    override fun getReportByDate(initialDate: LocalDate, endDate: LocalDate): ShopReportDTO {
+    override fun getReportByDate(
+        initialDate: LocalDate,
+        endDate: LocalDate,
+    ): ShopReportDTO {
         val sb = StringBuilder()
         sb.append("select count(sp.id), sum(sp.total), avg(sp.total) ")
         sb.append("from shopping.shop sp ")
@@ -55,7 +60,7 @@ class ReportRepositoryImpl(
         return ShopReportDTO(
             count = (result[0] as Long).toInt(),
             total = result[1] as Double,
-            mean = result[2] as Double
+            mean = result[2] as Double,
         )
     }
 }
