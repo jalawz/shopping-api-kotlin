@@ -17,7 +17,7 @@ class UserService {
                     .build()
 
             webClient.get()
-                .uri("/user/$cpf/cpf")
+                .uri("/users/$cpf/cpf")
                 .retrieve()
                 .bodyToMono(UserDTO::class.java).block()
         }.onFailure {

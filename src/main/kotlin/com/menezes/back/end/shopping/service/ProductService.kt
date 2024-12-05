@@ -17,7 +17,7 @@ class ProductService {
                     .build()
 
             webClient.get()
-                .uri("/product/$productIdentifier")
+                .uri("/products/$productIdentifier")
                 .retrieve()
                 .bodyToMono(ProductDTO::class.java).block()
         }.onFailure {
